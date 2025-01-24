@@ -44,6 +44,52 @@ const userResolver = {
       }
     },
 
+    login: async (_, { input }, context) => {
+      try {
+        const { username, password } = input;
+        // if (!username || !password) {
+        //   throw new Error("Please fill in all required fields");
+        // }
+
+        // const user = await User.findOne({ username });
+        // if (!user) {
+        //   throw new Error("User not found");
+        // }
+
+        // const isPasswordCorrect = await bcrypt.compare(password, user.password);
+        // if (!isPasswordCorrect) {
+        //   throw new Error("Wrong password");
+        // }
+
+        const { user } = await context.authenticate("graphql-local", {
+          username,
+          password,
+        });
+
+        await context.login(user);
+
+        return user;
+      } catch (error) {
+        console.error("Error in user login: ", error);
+        throw new Error(error.message || "Internal server error");
+      }
+    },
+
+    logout: async (_, __, context) => {
+      try {
+        await context.logout();
+        context.req.session.destroy((err) => {
+          if (err) throw err;
+        });
+        context.res.clearCookie("connect.sid");
+
+        return { message: "Logged out successfully" };
+      } catch (error) {
+        console.error("Error in user logout: ", error);
+        throw new Error(error.message || "Internal server error");
+      }
+    },
+
     // ======= register for PostgreSQL (via prisma)
     // register: async (_, { input }, context) => {
     //   try {
@@ -86,12 +132,30 @@ const userResolver = {
   },
 
   Query: {
-    users: () => {
-      return users;
-    },
-    // user: (_, args) => {
-    //   return users.find((user) => user._id === args.userId);
+    // users: () => {
+    //   return users;
     // },
+    // user: (_, args) => {
+    //     return users.find((user) => user._id === args.userId);
+    //   },
+
+    authUser: async (_, __, context) => {
+      const user = await context.getUser();
+      return user;
+    },
+
+    user: async (_, { userId }) => {
+      try {
+        const user = await User.findById(userId);
+
+        return user;
+      } catch (error) {
+        console.error("User is not found in DB: ", error);
+        throw new Error(error.message || "Error getting user");
+      }
+    },
+
+    // todo => add user/transaction relation
   },
 };
 

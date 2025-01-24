@@ -9,7 +9,7 @@ const userTypeDef = `#graphql
     }
 
     type Query {
-        users: [User!]                       # array of users required
+        # users: [User!]                       # array of users required
         authUser: User                       # return user if authentificated, if not - null    ---- so user is not reqired
         user(userId: ID!): User              # return user by id
     }
