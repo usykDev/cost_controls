@@ -3,11 +3,23 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import InputField from "@/components/ui/InputField";
 import Link from "next/link";
+import { LOGIN } from "../../graphql/mutations/user.mutation";
+import { useApolloClient, useMutation, useQuery } from "@apollo/client";
+import { toast } from "react-hot-toast";
+import { GET_AUTHENTICATED_USER } from "@/graphql/queries/user.query";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
+  });
+  const router = useRouter();
+
+  const [login, { loading }] = useMutation(LOGIN, {
+    onCompleted: () => {
+      router.refresh();
+    },
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,9 +30,18 @@ const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(loginData);
+    if (!loginData.username || !loginData.password) {
+      return toast.error("Please fill in all fields");
+    }
+    try {
+      await login({ variables: { input: loginData } });
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error((error as Error).message);
+    }
   };
 
   return (
@@ -55,8 +76,9 @@ const LoginPage = () => {
                 <button
                   type="submit"
                   className="w-full bg-primary-medium text-white p-2 rounded-md hover:bg-primary-dark focus:outline-none focus:bg-black  focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={loading}
                 >
-                  Login
+                  {loading ? "Loading ..." : "Login"}
                 </button>
               </div>
             </form>

@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "tailwind.config.tjs",
-    "tailwind.config.ts"
+    "tailwind.config.ts",
+    "src/auth/useAuth.js"
   ],
   "exclude": ["node_modules"]
 }

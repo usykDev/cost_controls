@@ -1,8 +1,8 @@
 import Cards from "@/components/ui/Cards";
 import TransactionForm from "@/components/ui/TransactionForm";
 
-import Logout from "@/components/ui/Logout";
 import DoughnutChart from "@/components/ui/DoughnutChart";
+import Logout from "@/components/ui/Logout";
 
 // const chartOptions: ChartOptions<"doughnut"> = {
 //   responsive: true,
@@ -47,24 +47,10 @@ const HomePage = () => {
     ],
   };
 
-  const loading = false;
-
   return (
     <>
+      <Logout />
       <div className="flex flex-col gap-6 items-center max-w-7xl mx-auto z-20 relative justify-center">
-        <div className="flex items-center">
-          <img
-            src={"https://tecdn.b-cdn.net/img/new/avatars/2.webp"}
-            className="w-10 h-10 rounded-full border cursor-pointer"
-            alt="Avatar"
-          />
-
-          {!loading && <Logout />}
-          {/* loading spinner */}
-          {loading && (
-            <div className="w-6 h-6 border-t-2 border-b-2 mx-2 rounded-full animate-spin"></div>
-          )}
-        </div>
         <div className="flex flex-wrap w-full justify-center items-center gap-6">
           <div className="h-[330px] w-[330px]">
             <DoughnutChart data={chartData} />

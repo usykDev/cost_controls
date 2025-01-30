@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import Logout from "./Logout";
 
 const Header = () => {
   return (
-    <div className="mb-5">
+    <div className="flex flex-col justify-center items-center w-full gap-5 mb-5">
       <h1 className="text-3xl font-bold items-center text-center relative z-50 pt-5">
         <Link href="/" className="flex flex-col justify-center items-center ">
           {/* <Image src="/logo-lg.png" alt="logo" width={136} height={150} /> */}

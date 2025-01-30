@@ -12,11 +12,6 @@ const categoryColorMap: Record<Category, string> = {
   saving: "from-[#308C70] to-[#43D5A8]",
   expense: "from-pink-800 to-pink-600",
   investment: "from-blue-700 to-blue-400",
-
-  //   saving: "from-[#009DDC] to-[#B9EBFF]",
-  //   expense: "from-[#FF6384] to-[#FCE2D8]",
-  //   investment: "from-[#6761A8] to-[#DEDBFF]",
-  // Add more categories and corresponding color classes as needed
 };
 
 interface CardProps {
