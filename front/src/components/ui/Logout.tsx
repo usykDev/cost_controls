@@ -1,13 +1,12 @@
 "use client";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { MdLogout } from "react-icons/md";
 import { LOGOUT } from "../../graphql/mutations/user.mutation";
 import toast from "react-hot-toast";
-import { GET_AUTHENTICATED_USER } from "@/graphql/queries/user.query";
 import { useRouter } from "next/navigation";
+import { client } from "@/apollo/apolloProvider";
 
 const Logout = () => {
-  const { data, refetch } = useQuery(GET_AUTHENTICATED_USER);
   const router = useRouter();
 
   const [logout, { loading }] = useMutation(LOGOUT, {
@@ -17,10 +16,9 @@ const Logout = () => {
   });
 
   const handleLogout = async () => {
-    // console.log("Logging out...");
     try {
       await logout();
-      // clear cash
+      client.clearStore();
     } catch (error) {
       console.error("Error:", error);
       toast.error((error as Error).message);

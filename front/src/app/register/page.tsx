@@ -2,12 +2,11 @@
 
 import InputField from "@/components/ui/InputField";
 import RadioButton from "@/components/ui/RadioButton";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { REGISTER } from "../../graphql/mutations/user.mutation";
 import toast from "react-hot-toast";
-import { GET_AUTHENTICATED_USER } from "@/graphql/queries/user.query";
 import { useRouter } from "next/navigation";
 
 const Register = () => {

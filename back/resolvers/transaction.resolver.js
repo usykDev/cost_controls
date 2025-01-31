@@ -31,21 +31,7 @@ const transactionResolver = {
   Mutation: {
     createTransaction: async (_, { input }, context) => {
       try {
-        // const { description, paymentType, category, amount, location, date } =
-        //   input;
-
-        // if (!description || !paymentType || !category || !amount || !date) {
-        //   throw new Error("Please fill in all required fields");
-        // }
-
         const newTransaction = new Transaction({
-          //   userId,
-          //   description,
-          //   paymentType,
-          //   category,
-          //   amount,
-          //   location,
-          //   date,
           ...input,
           userId: context.getUser()._id,
         });
@@ -61,15 +47,6 @@ const transactionResolver = {
 
     updateTransaction: async (_, { input }) => {
       try {
-        // const { description, paymentType, category, amount, location, date } =
-        //   input;
-
-        // if (!description || !paymentType || !category || !amount || !date) {
-        //   throw new Error("Please fill in all required fields");
-        // }
-
-        // const transaction = Transaction.findById(input.transactionId)
-
         const updatedTransaction = await Transaction.findByIdAndUpdate(
           input.transactionId,
           input,

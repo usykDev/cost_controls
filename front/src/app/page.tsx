@@ -4,28 +4,7 @@ import TransactionForm from "@/components/ui/TransactionForm";
 import DoughnutChart from "@/components/ui/DoughnutChart";
 import Logout from "@/components/ui/Logout";
 
-// const chartOptions: ChartOptions<"doughnut"> = {
-//   responsive: true,
-//   maintainAspectRatio: false,
-//   plugins: {
-//     legend: {
-//       position: "top", // Use a valid position
-//       labels: {
-//         padding: 10, // Adjust space between chart and labels
-//       },
-//     },
-//   },
-//   layout: {
-//     padding: {
-//       top: 20, // Adds space above the chart (increases gap between legend and chart)
-//       //   bottom: 20,
-//       //   left: 20,
-//       //   right: 20,
-//     },
-//   },
-// };
-
-const HomePage = () => {
+const HomePage = async () => {
   const chartData = {
     labels: ["Saving", "Expense", "Investment"],
     datasets: [

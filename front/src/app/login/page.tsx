@@ -4,9 +4,8 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import InputField from "@/components/ui/InputField";
 import Link from "next/link";
 import { LOGIN } from "../../graphql/mutations/user.mutation";
-import { useApolloClient, useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { toast } from "react-hot-toast";
-import { GET_AUTHENTICATED_USER } from "@/graphql/queries/user.query";
 import { useRouter } from "next/navigation";
 
 const LoginPage = () => {

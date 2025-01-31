@@ -1,16 +1,23 @@
 "use client";
 
 import { FormEvent } from "react";
-import { usePathname } from "next/navigation";
+import { useMutation } from "@apollo/client";
+import { CREATE_TRANSACTION } from "@/graphql/mutations/transaction.mutation";
+
+import { toast } from "react-hot-toast";
 
 const TransactionForm = () => {
-  const pathname = usePathname();
+  const [createTransaction, { loading, error }] = useMutation(
+    CREATE_TRANSACTION,
+    { refetchQueries: ["GetTransactions"] }
+  );
 
-  const extractedData = (e: FormEvent<HTMLFormElement>) => {
-    // we take data form form // but need to pass event from handler
+  const handleSubmitAdd = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const data = {
+    const transactionData = {
       description: formData.get("description"), // goes from form attribute name="description"
       paymentType: formData.get("paymentType"),
       category: formData.get("category"),
@@ -18,25 +25,24 @@ const TransactionForm = () => {
       location: formData.get("location"),
       date: formData.get("date"),
     };
+    try {
+      await createTransaction({
+        variables: {
+          input: transactionData,
+        },
+      });
 
-    return data;
+      form.reset();
+      toast.success("Transaction created successfully");
+    } catch (error) {
+      toast.error((error as Error).message);
+    }
   };
 
-  const handleSubmitAdd = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const transactionData = extractedData(e);
-    console.log("handleSubmitAdd", transactionData);
-  };
-
-  const handleSubmitUpdate = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const transactionData = extractedData(e);
-    console.log("handleSubmitUpdate", transactionData);
-  };
   return (
     <form
       className="z-50 w-full max-w-lg flex flex-col justify-center gap-5 px-3 "
-      onSubmit={pathname === "/" ? handleSubmitAdd : handleSubmitUpdate}
+      onSubmit={handleSubmitAdd}
     >
       {/* TRANSACTION */}
       <div className="flex ">
@@ -177,8 +183,9 @@ const TransactionForm = () => {
               from-pink-500 to-pink-500 hover:from-pink-600 hover:to-pink-600
                             disabled:opacity-70 disabled:cursor-not-allowed"
         type="submit"
+        disabled={loading}
       >
-        Add Transaction
+        {loading ? "Loading ..." : "Add Transaction"}
       </button>
     </form>
   );

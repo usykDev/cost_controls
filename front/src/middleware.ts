@@ -9,8 +9,6 @@ export function middleware(req: NextRequest) {
     const session = req.cookies.get("connect.sid")?.value
     const {pathname}= req.nextUrl
 
-    // console.log("session: ",session)
-
     if(!session && PROTECTED_ROUTES.includes(pathname)) {
         return NextResponse.redirect(new URL('/login', req.url))
     }
