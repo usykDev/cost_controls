@@ -1,4 +1,4 @@
-import { users } from "../exampleData/data.js";
+import Transaction from "../models/transaction.model.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
@@ -47,19 +47,6 @@ const userResolver = {
     login: async (_, { input }, context) => {
       try {
         const { username, password } = input;
-        // if (!username || !password) {
-        //   throw new Error("Please fill in all required fields");
-        // }
-
-        // const user = await User.findOne({ username });
-        // if (!user) {
-        //   throw new Error("User not found");
-        // }
-
-        // const isPasswordCorrect = await bcrypt.compare(password, user.password);
-        // if (!isPasswordCorrect) {
-        //   throw new Error("Wrong password");
-        // }
 
         const { user } = await context.authenticate("graphql-local", {
           username,
@@ -154,8 +141,18 @@ const userResolver = {
         throw new Error(error.message || "Error getting user");
       }
     },
+  },
 
-    // todo => add user/transaction relation
+  User: {
+    transactions: async (parent) => {
+      try {
+        const transactions = await Transaction.find({ userId: parent._id });
+        return transactions;
+      } catch (error) {
+        console.error("Error in user.transaction resolver: ", error);
+        throw new Error(error.message || "Internal server error");
+      }
+    },
   },
 };
 

@@ -24,6 +24,10 @@ export const GET_TRANSACTION = gql`
       description
       location
       paymentType
+      user {
+      name
+      username
+    }
     }
   }
 `;
@@ -38,6 +42,7 @@ export const UPDATE_TRANSACTION = gql`
       description
       location
       paymentType
+      
     }
   }
 `;
@@ -49,3 +54,4 @@ query CategoryStatistics {
     totalAmount
   }
 }` 
+ 

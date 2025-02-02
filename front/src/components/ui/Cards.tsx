@@ -5,14 +5,19 @@ import Card from "./Card";
 import { GET_TRANSACTIONS } from "@/graphql/queries/transaction.query";
 
 import { Transaction } from "./Card";
+import {
+  GET_AUTHENTICATED_USER,
+  GET_USER_AND_TRANSACTIONS,
+} from "@/graphql/queries/user.query";
 
 const Cards = () => {
   const { data, loading, error } = useQuery(GET_TRANSACTIONS);
+  const { data: authUser } = useQuery(GET_AUTHENTICATED_USER);
+  const { data: userAndTransactions } = useQuery(GET_USER_AND_TRANSACTIONS, {
+    variables: { userId: authUser?.authUser?._id },
+  });
 
-  //   if (error) return <p>Error: {error.message}</p>;
-  //   if (loading) return <p>Loading ...</p>;
-
-  //   console.log("cards:", data?.transactions);
+  //   console.log("userAndTransactions:", userAndTransactions);
 
   // todo => add relationships
   return (

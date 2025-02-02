@@ -1,4 +1,5 @@
 import Transaction from "../models/transaction.model.js";
+import User from "../models/user.model.js";
 
 const transactionResolver = {
   Query: {
@@ -102,6 +103,19 @@ const transactionResolver = {
     },
 
     // todo => add thansaction/user relationship
+  },
+
+  Transaction: {
+    user: async (parent) => {
+      const userId = parent.userId; // parent is transaction
+      try {
+        const user = await User.findById(userId);
+        return user;
+      } catch (error) {
+        console.error("Error in transaction.user resolver: ", error);
+        throw new Error(error.message || "Internal server error");
+      }
+    },
   },
 };
 
