@@ -9,7 +9,7 @@ import { toast } from "react-hot-toast";
 const TransactionForm = () => {
   const [createTransaction, { loading, error }] = useMutation(
     CREATE_TRANSACTION,
-    { refetchQueries: ["GetTransactions"] }
+    { refetchQueries: ["GetTransactions", "CategoryStatistics"] }
   );
 
   const handleSubmitAdd = async (e: FormEvent<HTMLFormElement>) => {
@@ -137,6 +137,8 @@ const TransactionForm = () => {
             name="amount"
             type="number"
             placeholder="150"
+            step="0.01"
+            // min="0"
           />
         </div>
       </div>

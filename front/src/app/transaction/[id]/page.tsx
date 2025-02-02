@@ -26,8 +26,10 @@ const Transaction = () => {
     date: data?.transaction?.date || "",
   });
 
-  const [updateTransaction, { loading: loadingUpdate }] =
-    useMutation(UPDATE_TRANSACTION);
+  const [updateTransaction, { loading: loadingUpdate }] = useMutation(
+    UPDATE_TRANSACTION,
+    { refetchQueries: ["GetTransactions", "CategoryStatistics"] }
+  );
 
   useEffect(() => {
     if (data) {
@@ -186,6 +188,7 @@ const Transaction = () => {
                 placeholder="150"
                 value={formData.amount}
                 onChange={handleInputChange}
+                min="0"
               />
             </div>
           </div>
