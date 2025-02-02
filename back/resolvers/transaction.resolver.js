@@ -59,17 +59,12 @@ const transactionResolver = {
       }
     },
 
-    deleteTransaction: async (_, { transactionId }, context) => {
+    deleteTransaction: async (_, { transactionId }) => {
       try {
-        await Transaction.findByIdAndDelete(transactionId);
-
-        if (!context.getUser()) throw new Error("Unauthorized");
-
-        const userId = await context.getUser()._id;
-
-        const transactions = Transaction.find({ userId });
-
-        return transactions;
+        const deletedTransaction = await Transaction.findByIdAndDelete(
+          transactionId
+        );
+        return deletedTransaction;
       } catch (error) {
         console.error("Error deleting transaction: ", error);
         throw new Error(error.message || "Error deleting transaction");

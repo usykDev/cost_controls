@@ -9,6 +9,7 @@ import { formatDate } from "../../../utils/formatDate";
 import { useMutation } from "@apollo/client";
 import { DELETE_TRANSACTION } from "@/graphql/mutations/transaction.mutation";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 type Category = "saving" | "expense" | "investment";
 
@@ -50,6 +51,7 @@ const Card: React.FC<{ transaction: Transaction }> = ({ transaction }) => {
           transactionId: transaction._id,
         },
       });
+
       toast.success("Transaction deleted successfully");
     } catch (error) {
       console.error("Error deleting transaction:", error);
