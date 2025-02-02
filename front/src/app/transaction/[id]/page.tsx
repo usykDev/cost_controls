@@ -8,13 +8,14 @@ import { GET_TRANSACTION } from "@/graphql/queries/transaction.query";
 import { FormEvent, useEffect, useState } from "react";
 import { UPDATE_TRANSACTION } from "@/graphql/queries/transaction.query";
 import toast from "react-hot-toast";
-
+import { useRouter } from "next/navigation";
 
 const Transaction = () => {
   const { id } = useParams();
   const { data, loading } = useQuery(GET_TRANSACTION, {
     variables: { transactionId: id },
   });
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     description: data?.transaction?.description || "",
@@ -61,6 +62,7 @@ const Transaction = () => {
         },
       });
       toast.success("Transaction updated successfully");
+      router.push("/");
     } catch (error) {
       console.error("Error:", error);
       toast.error((error as Error).message);
@@ -70,7 +72,7 @@ const Transaction = () => {
   if (loading) return <TransactionFormSkeleton />;
 
   return (
-    <>
+    <div className="flex flex-col">
       <Logout />
 
       <div className="flex flex-col justify-center items-center">
@@ -88,7 +90,7 @@ const Transaction = () => {
           <div className="flex ">
             <div className="w-full">
               <label
-                className="block uppercase tracking-wide text-primary-medium text-xs font-bold mb-2"
+                className="block uppercase tracking-wide text-xs font-bold mb-2"
                 htmlFor="description"
               >
                 Transaction
@@ -108,7 +110,7 @@ const Transaction = () => {
           <div className="flex flex-wrap gap-3">
             <div className="w-full flex-1 mb-6 md:mb-0">
               <label
-                className="block uppercase tracking-wide text-primary-medium text-xs font-bold mb-2"
+                className="block uppercase tracking-wide text-xs font-bold mb-2"
                 htmlFor="paymentType"
               >
                 Payment Type
@@ -139,7 +141,7 @@ const Transaction = () => {
             {/* CATEGORY */}
             <div className="w-full flex-1 mb-6 md:mb-0">
               <label
-                className="block uppercase tracking-wide text-primary-medium text-xs font-bold mb-2"
+                className="block uppercase tracking-wide text-xs font-bold mb-2"
                 htmlFor="category"
               >
                 Category
@@ -171,7 +173,7 @@ const Transaction = () => {
             {/* AMOUNT */}
             <div className="w-full flex-1 mb-6 md:mb-0">
               <label
-                className="block uppercase text-primary-medium text-xs font-bold mb-2"
+                className="block uppercase text-xs font-bold mb-2"
                 htmlFor="amount"
               >
                 Amount($)
@@ -192,7 +194,7 @@ const Transaction = () => {
           <div className="flex flex-wrap gap-3">
             <div className="w-full flex-1 mb-6 md:mb-0">
               <label
-                className="block uppercase tracking-wide text-primary-medium text-xs font-bold mb-2"
+                className="block uppercase tracking-wide text-xs font-bold mb-2"
                 htmlFor="location"
               >
                 Location
@@ -211,7 +213,7 @@ const Transaction = () => {
             {/* DATE */}
             <div className="w-full flex-1">
               <label
-                className="block uppercase tracking-wide text-primary-medium text-xs font-bold mb-2"
+                className="block uppercase tracking-wide text-xs font-bold mb-2"
                 htmlFor="date"
               >
                 Date
@@ -240,7 +242,7 @@ const Transaction = () => {
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -28,7 +28,7 @@ const InputField: React.FC<InputFieldProps> = ({
       </label>
       <div className="relative">
         <input
-          className="py-1 px-1.5 mt-1 w-full border rounded-md text-black focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
+          className="py-1 bg-gray-200 px-1.5 mt-1 w-full border rounded-md text-black focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
           id={id}
           type={isPasswordField && showPassword ? "text" : type}
           name={name}
