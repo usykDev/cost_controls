@@ -41,3 +41,11 @@ export const UPDATE_TRANSACTION = gql`
     }
   }
 `;
+
+export const GET_TRANSACTION_STATISTICS = gql`
+query CategoryStatistics {
+  categoryStatistics {
+    category
+    totalAmount
+  }
+}` 

@@ -1,5 +1,5 @@
 "use client";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { MdLogout } from "react-icons/md";
 
 import { LOGOUT } from "../../graphql/mutations/user.mutation";
@@ -7,9 +7,12 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { client } from "@/apollo/apolloProvider";
 import ThemeSwitch from "./ThemeSwitch";
+import { GET_AUTHENTICATED_USER } from "@/graphql/queries/user.query";
+import { useEffect } from "react";
 
 const Logout = () => {
   const router = useRouter();
+  const { data } = useQuery(GET_AUTHENTICATED_USER);
 
   const [logout, { loading }] = useMutation(LOGOUT, {
     onCompleted: () => {
@@ -30,8 +33,12 @@ const Logout = () => {
   return (
     <div className="flex justify-center gap-4 items-center relative z-50 mb-5 pt-3">
       <img
-        src={"https://tecdn.b-cdn.net/img/new/avatars/2.webp"}
-        className="w-10  h-10 rounded-full border cursor-pointer"
+        src={data?.authUser?.avatar}
+        className={
+          data?.authUser?.avatar
+            ? "w-10  h-10 rounded-full border cursor-pointer"
+            : "w-6 h-6 border-t-2 border-b-2 rounded-full animate-spin"
+        }
         alt="Avatar"
       />
 

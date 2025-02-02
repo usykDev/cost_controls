@@ -36,6 +36,13 @@ export default {
           "secondary-500": "#738893"
         },
       },
+
+      screens: {
+        "xs": "435px",
+        "sm": "756px",
+        "md": "960px",
+        "lg": "1440px"
+      }
   },
   plugins: [
     addVariablesForColors,
