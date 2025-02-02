@@ -13,7 +13,6 @@ import {
 import { useQuery } from "@apollo/client";
 import { GET_TRANSACTION_STATISTICS } from "@/graphql/queries/transaction.query";
 import { useEffect, useState } from "react";
-import ChartDataLabels from "chartjs-plugin-datalabels";
 
 // const chartData = {
 //   labels: ["Saving", "Expense", "Investment"],

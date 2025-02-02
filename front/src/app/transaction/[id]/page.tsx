@@ -15,6 +15,9 @@ const Transaction = () => {
   const { data, loading } = useQuery(GET_TRANSACTION, {
     variables: { transactionId: id },
   });
+
+  console.log("userOfTransaction:", data);
+
   const router = useRouter();
 
   const [formData, setFormData] = useState({
