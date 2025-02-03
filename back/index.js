@@ -16,10 +16,6 @@ import { buildContext } from "graphql-passport";
 import mergedTypeDefs from "./typeDefs/index.js";
 import mergedResolvers from "./resolvers/index.js";
 
-// import pool from "./db/connectPostgreSQL.js";
-// import { PrismaClient } from "@prisma/client";
-// import connectPgSimple from "connect-pg-simple";
-
 import { connectDB } from "./db/connectDB.js";
 import { configurePassport } from "./passport/passport.config.js";
 
@@ -30,13 +26,6 @@ const app = express();
 const port = 4000;
 
 const httpServer = http.createServer(app);
-
-// const PgSession = connectPgSimple(session);
-// const store = new PgSession({
-//   pool: pool, // PostgreSQL connection pool
-//   tableName: "Session", // The name of the table where session data will be stored
-//   ttl: 1000 * 60 * 60 * 24 * 7, // 7 days
-// });
 
 const MongoDBStore = ConnectMongoDBSession(session);
 

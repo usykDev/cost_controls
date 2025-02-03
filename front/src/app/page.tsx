@@ -1,6 +1,5 @@
 import Cards from "@/components/ui/Cards";
 import TransactionForm from "@/components/ui/TransactionForm";
-
 import DoughnutChart from "@/components/ui/DoughnutChart";
 import Logout from "@/components/ui/Logout";
 

@@ -43,7 +43,6 @@ const Register = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // console.log(registerData);
     if (
       !registerData.username ||
       !registerData.password ||

@@ -8,8 +8,6 @@ const Header = () => {
           <div className="bg-gray-200 rounded-2xl px-3 py-2">
             <img src="/logo-lg.png" alt="logo" width={136} height={150} />
           </div>
-
-          {/* <div className="text-primary-dark">COST CONTROL</div> */}
         </Link>
       </h1>
     </div>

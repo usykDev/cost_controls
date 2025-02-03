@@ -9,6 +9,7 @@ import ThemeProvider from "../../utils/ThemeProvider";
 export const metadata: Metadata = {
   title: "Cost control",
   description: "Tracking all costs",
+  icons: "/favicon.png",
 };
 
 export default function RootLayout({
@@ -16,8 +17,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const authUser = true;
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
