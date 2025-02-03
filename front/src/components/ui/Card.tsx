@@ -29,7 +29,16 @@ export interface Transaction {
   date: string;
 }
 
-const Card: React.FC<{ transaction: Transaction }> = ({ transaction }) => {
+export interface AuthUser {
+  name: string;
+  username: string;
+  avatar: string;
+}
+
+const Card: React.FC<{ transaction: Transaction; authUser: AuthUser }> = ({
+  transaction,
+  authUser,
+}) => {
   let { description, paymentType, category, amount, location, date } =
     transaction;
 
@@ -101,9 +110,9 @@ const Card: React.FC<{ transaction: Transaction }> = ({ transaction }) => {
       </div>
 
       <div className="flex justify-between items-center">
-        <p className="text-xs text-black font-bold">{date}</p>
+        <p className="text-xs text-black self-end font-bold">{date}</p>
         <img
-          src={"https://tecdn.b-cdn.net/img/new/avatars/2.webp"}
+          src={authUser.avatar}
           className="h-8 w-8 border rounded-full"
           alt=""
         />

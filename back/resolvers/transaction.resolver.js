@@ -101,13 +101,11 @@ const transactionResolver = {
         throw new Error(error.message || "Error deleting transaction");
       }
     },
-
-    // todo => add thansaction/user relationship
   },
 
   Transaction: {
     user: async (parent) => {
-      const userId = parent.userId; // parent is transaction
+      const userId = parent.userId; // parent is Transaction
       try {
         const user = await User.findById(userId);
         return user;

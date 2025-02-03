@@ -16,8 +16,6 @@ const Transaction = () => {
     variables: { transactionId: id },
   });
 
-  console.log("userOfTransaction:", data);
-
   const router = useRouter();
 
   const [formData, setFormData] = useState({
@@ -84,8 +82,6 @@ const Transaction = () => {
         <p className="text-2xl font-bold text-center relative z-50 mb-4 bg-gradient-to-r from-secondary-300 via-pink-400 to-secondary-300 inline-block text-transparent bg-clip-text">
           Update this transaction
         </p>
-
-        {/* <TransactionForm /> */}
 
         <form
           className="z-50 w-full max-w-lg flex flex-col justify-center gap-5 px-3 "

@@ -76,56 +76,9 @@ const userResolver = {
         throw new Error(error.message || "Internal server error");
       }
     },
-
-    // ======= register for PostgreSQL (via prisma)
-    // register: async (_, { input }, context) => {
-    //   try {
-    //     const { username, name, password, gender } = input;
-    //     if (!username || !name || !password || !gender) {
-    //       throw new Error("Please fill in all required fields");
-    //     }
-
-    //     const existingUser = await prisma.user.findUnique({
-    //       where: { username },
-    //     });
-    //     if (existingUser) {
-    //       throw new Error("User already exists");
-    //     }
-
-    //     const salt = await bcrypt.genSalt(10);
-    //     const hashedPassword = await bcrypt.hash(password, salt);
-
-    //     const boyPic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
-    //     const girlPic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
-
-    //     const newUser = await prisma.user.create({
-    //       data: {
-    //         username,
-    //         name,
-    //         password: hashedPassword,
-    //         gender,
-    //         avatar: gender === "male" ? boyPic : girlPic,
-    //       },
-    //     });
-
-    //     await context.login(newUser);
-
-    //     return newUser;
-    //   } catch (error) {
-    //     console.error("Error of user registration: ", error);
-    //     throw new Error(error.message || "Internal server error");
-    //   }
-    // },
   },
 
   Query: {
-    // users: () => {
-    //   return users;
-    // },
-    // user: (_, args) => {
-    //     return users.find((user) => user._id === args.userId);
-    //   },
-
     authUser: async (_, __, context) => {
       const user = await context.getUser();
       return user;

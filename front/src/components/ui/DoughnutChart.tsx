@@ -1,6 +1,6 @@
 "use client";
 
-import { Doughnut, Pie } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   ArcElement,
@@ -13,27 +13,6 @@ import {
 import { useQuery } from "@apollo/client";
 import { GET_TRANSACTION_STATISTICS } from "@/graphql/queries/transaction.query";
 import { useEffect, useState } from "react";
-
-// const chartData = {
-//   labels: ["Saving", "Expense", "Investment"],
-//   datasets: [
-//     {
-//       label: "%",
-//       data: [13, 8, 3],
-//       backgroundColor: [
-//         "rgba(75, 192, 192)",
-//         "rgba(255, 99, 132)",
-//         "rgba(54, 162, 235)",
-//       ],
-//       borderColor: [
-//         "rgba(75, 192, 192)",
-//         "rgba(255, 99, 132)",
-//         "rgba(54, 162, 235, 1)",
-//       ],
-//       cutout: 120,
-//     },
-//   ],
-// };
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
@@ -54,12 +33,13 @@ const DoughnutChart = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: "left", // Correct valid positions: 'top', 'left', 'bottom', 'right'
-        align: "start", // Correct valid align options: 'start', 'center', 'end'
+        position: "left",
+        align: "start",
       },
     },
-    cutout: 0, // Cutout as percentage to adjust doughnut size (from 0 to 100)
-  };
+    cutout: 0,
+  } as const;
+
   const [chartData, setChartData] = useState<ChartData<"doughnut">>({
     labels: [],
     datasets: [
