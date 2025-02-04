@@ -3,14 +3,18 @@ import type { NextRequest } from "next/server";
 
 
 const PUBLIC_ROUTES = ["/login", "/register"];
-const PROTECTED_ROUTES = ["/", "/transaction/:id"];
+const PROTECTED_ROUTES = ["/", /^\/transaction\/[^\/]+$/]; // Matching "/transaction/:id"
 
 export function middleware(req: NextRequest) {
     const session = req.cookies.get("connect.sid")?.value
     const {pathname}= req.nextUrl
 
-    if(!session && PROTECTED_ROUTES.includes(pathname)) {
-        return NextResponse.redirect(new URL('/login', req.url))
+    const isProtected = PROTECTED_ROUTES.some((route) => 
+    typeof route === "string" ? pathname === route : route.test(pathname)
+    )
+
+    if (!session && isProtected) {
+        return NextResponse.redirect(new URL("/login", req.url));
     }
 
     if(session && PUBLIC_ROUTES.includes(pathname)) {
@@ -21,6 +25,6 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/", "/transaction/:id", "/login", "/register"], 
+    matcher: ["/", "/transaction/:path*", "/login", "/register"], 
    };
 

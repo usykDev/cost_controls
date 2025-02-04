@@ -23,7 +23,7 @@ dotenv.config();
 configurePassport();
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT;
 
 const httpServer = http.createServer(app);
 
@@ -63,7 +63,7 @@ await server.start();
 app.use(
   "/graphql",
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.CLIENT_URL,
     credentials: true,
   }),
   express.json(),

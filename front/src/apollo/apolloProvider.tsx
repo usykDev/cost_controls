@@ -3,7 +3,11 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 export const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri:
+    process.env.NODE_ENV === "development"
+      ? process.env.NEXT_PUBLIC_GRAPHQL_URI_DEV
+      : process.env.NEXT_PUBLIC_GRAPHQL_URI_PROD,
+
   cache: new InMemoryCache(),
   credentials: "include", // For sending cookies alongside the request
 });

@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { client } from "@/apollo/apolloProvider";
 import ThemeSwitch from "./ThemeSwitch";
 import { GET_AUTHENTICATED_USER } from "@/graphql/queries/user.query";
-import { useEffect } from "react";
 
 const Logout = () => {
   const router = useRouter();
@@ -17,13 +16,13 @@ const Logout = () => {
   const [logout, { loading }] = useMutation(LOGOUT, {
     onCompleted: () => {
       router.refresh();
+      client.clearStore();
     },
   });
 
   const handleLogout = async () => {
     try {
       await logout();
-      client.clearStore();
     } catch (error) {
       console.error("Error:", error);
       toast.error((error as Error).message);
