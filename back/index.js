@@ -34,6 +34,8 @@ const store = new MongoDBStore({
   collection: "sessions",
 });
 
+app.set("trust proxy", 1); // ✅ Required for cookies on Vercel
+
 store.on("error", (err) => console.log(err));
 
 app.use(
@@ -44,6 +46,8 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days in milliseconds
       httpOnly: true, // prevents the Cross-Site Scriptiong (XSS) attacks
+      secure: process.env.NODE_ENV === "production", // ✅ Required for Vercel
+      sameSite: "None", // ✅ Required for cross-domain cookies
     },
     store: store,
   })
