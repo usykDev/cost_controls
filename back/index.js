@@ -44,6 +44,8 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days in milliseconds
       httpOnly: true, // prevents the Cross-Site Scriptiong (XSS) attacks
+      secure: true, // Must be true in HTTPS
+      sameSite: "none", // Required for cross-site cookies
     },
     store: store,
   })
