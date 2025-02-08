@@ -14,11 +14,15 @@ export function middleware(req: NextRequest) {
     )
 
     if (!session && isProtected) {
-        return NextResponse.redirect(new URL("/login", req.url));
+        // return NextResponse.redirect(new URL("/login", req.url));
+        return NextResponse.redirect(`${req.nextUrl.origin}/login`);
+
     }
 
     if(session && PUBLIC_ROUTES.includes(pathname)) {
-        return NextResponse.redirect(new URL('/', req.url))
+        // return NextResponse.redirect(new URL('/', req.url))
+        return NextResponse.redirect(`${req.nextUrl.origin}/`);
+
     }
 
     return NextResponse.next()
