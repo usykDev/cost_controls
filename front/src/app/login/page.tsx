@@ -43,9 +43,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="flex rounded-lg overflow-hidden z-50 bg-gray-300">
-        <div className="w-full bg-gray-100 min-w-64 sm:min-w-96 flex items-center justify-center">
+    <div className="flex justify-center items-center mt-8 mx-6">
+      <div className="flex rounded-lg overflow-hidden z-50 bg-gray-300 w-full xs:max-w-96">
+        <div className="w-full bg-gray-100 flex items-center justify-center">
           <div className="max-w-md w-full p-4 sm:p-6">
             <h1 className="text-3xl font-semibold mb-3 text-primary-dark text-center">
               Login

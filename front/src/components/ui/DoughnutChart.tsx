@@ -31,6 +31,7 @@ const DoughnutChart = () => {
 
   const chartOptions = {
     responsive: true,
+    aspectRatio: 1,
     plugins: {
       legend: {
         position: "left",
@@ -91,7 +92,7 @@ const DoughnutChart = () => {
   }, [data]);
 
   return chartData.labels?.length ? (
-    <div className="xs:h-[430px] xs:w-[430px] h-[300px] w-[300px]">
+    <div>
       <Doughnut data={chartData} options={chartOptions} />
     </div>
   ) : (

@@ -153,7 +153,7 @@ const TransactionForm = () => {
             Location
           </label>
           <input
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            className="appearance-none block w-full bg-gray-200 h-11 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
             id="location"
             name="location"
             type="text"
@@ -173,7 +173,7 @@ const TransactionForm = () => {
             type="date"
             name="date"
             id="date"
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-[11px] px-4 mb-3 leading-tight focus:outline-none
+            className="appearance-none block w-full bg-gray-200 h-11 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none
                              focus:bg-white"
             placeholder="Select date"
           />
