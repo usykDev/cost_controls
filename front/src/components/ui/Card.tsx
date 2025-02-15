@@ -86,9 +86,11 @@ const Card: React.FC<{ transaction: Transaction; authUser: AuthUser }> = ({
             </Link>
           </div>
         </div>
-        <p className="text-white flex items-center gap-1">
-          <BsCardText />
-          Description: {description}
+        <p className="text-white flex items-center text-start gap-1">
+          <span className="w-fit">
+            <BsCardText />
+          </span>
+          Description: <span className="break-all w-full">{description}</span>
         </p>
         <p className="text-white flex items-center gap-1">
           <MdOutlinePayments />

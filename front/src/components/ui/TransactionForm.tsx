@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_TRANSACTION } from "@/graphql/mutations/transaction.mutation";
 
@@ -11,12 +11,15 @@ const TransactionForm = () => {
     CREATE_TRANSACTION,
     { refetchQueries: ["GetTransactions", "CategoryStatistics"] }
   );
+  const [selectedPayment, setSelectedPayment] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const handleSubmitAdd = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+
     const transactionData = {
       description: formData.get("description"), // goes from form attribute name="description"
       paymentType: formData.get("paymentType"),
@@ -33,6 +36,8 @@ const TransactionForm = () => {
       });
 
       form.reset();
+      setSelectedPayment("");
+      setSelectedCategory("");
       toast.success("Transaction created successfully");
     } catch (error) {
       toast.error((error as Error).message);
@@ -51,7 +56,7 @@ const TransactionForm = () => {
             className="block uppercase tracking-wide  text-xs font-bold mb-2"
             htmlFor="description"
           >
-            Transaction
+            Description
           </label>
           <input
             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -74,12 +79,26 @@ const TransactionForm = () => {
           </label>
           <div className="relative">
             <select
-              className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className={` ${
+                selectedPayment
+                  ? "text-gray-700 text-md"
+                  : "text-gray-500 text-sm"
+              } block appearance-none w-full bg-gray-200 border border-gray-200 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
               id="paymentType"
               name="paymentType"
+              required
+              value={selectedPayment}
+              onChange={(e) => setSelectedPayment(e.target.value)}
             >
-              <option value={"card"}>Card</option>
-              <option value={"cash"}>Cash</option>
+              <option value="" className="text-xs" disabled>
+                Select a payment type...
+              </option>
+              <option value={"card"} className="text-md text-gray-700">
+                Card
+              </option>
+              <option value={"cash"} className="text-md text-gray-700">
+                Cash
+              </option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
               <svg
@@ -103,13 +122,29 @@ const TransactionForm = () => {
           </label>
           <div className="relative">
             <select
-              className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className={` ${
+                selectedCategory
+                  ? "text-gray-700 text-md"
+                  : "text-gray-500 text-sm"
+              } block appearance-none w-full bg-gray-200 border border-gray-200 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
               id="category"
               name="category"
+              required
+              defaultValue={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
             >
-              <option value={"saving"}>Saving</option>
-              <option value={"expense"}>Expense</option>
-              <option value={"investment"}>Investment</option>
+              <option value="" disabled className="text-xs">
+                Select a category...
+              </option>
+              <option value={"saving"} className="text-md text-gray-700">
+                Saving
+              </option>
+              <option value={"expense"} className="text-md text-gray-700">
+                Expense
+              </option>
+              <option value={"investment"} className="text-md text-gray-700">
+                Investment
+              </option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
               <svg
@@ -136,6 +171,7 @@ const TransactionForm = () => {
             id="amount"
             name="amount"
             type="number"
+            required
             placeholder="150"
             step="0.01"
             // min="0"
@@ -173,6 +209,7 @@ const TransactionForm = () => {
             type="date"
             name="date"
             id="date"
+            required
             className="appearance-none block w-full bg-gray-200 h-11 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none
                              focus:bg-white"
             placeholder="Select date"

@@ -94,7 +94,7 @@ const Transaction = () => {
                 className="block uppercase tracking-wide text-xs font-bold mb-2"
                 htmlFor="description"
               >
-                Transaction
+                Description
               </label>
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -102,6 +102,7 @@ const Transaction = () => {
                 name="description"
                 type="text"
                 placeholder="Rent, Groceries, Salary, etc."
+                required
                 value={formData.description}
                 onChange={handleInputChange}
               />
@@ -118,14 +119,26 @@ const Transaction = () => {
               </label>
               <div className="relative">
                 <select
-                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className={` ${
+                    formData.paymentType
+                      ? "text-gray-700 text-md"
+                      : "text-gray-500 text-sm"
+                  } block appearance-none w-full bg-gray-200 border border-gray-200 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                   id="paymentType"
                   name="paymentType"
+                  required
                   value={formData.paymentType}
                   onChange={handleInputChange}
                 >
-                  <option value={"card"}>Card</option>
-                  <option value={"cash"}>Cash</option>
+                  <option value="" className="text-xs" disabled>
+                    Select a payment type...
+                  </option>
+                  <option value={"card"} className="text-md text-gray-700">
+                    Card
+                  </option>
+                  <option value={"cash"} className="text-md text-gray-700">
+                    Cash
+                  </option>
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                   <svg
@@ -149,15 +162,32 @@ const Transaction = () => {
               </label>
               <div className="relative">
                 <select
-                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className={` ${
+                    formData.category
+                      ? "text-gray-700 text-md"
+                      : "text-gray-500 text-sm"
+                  } block appearance-none w-full bg-gray-200 border border-gray-200 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                   id="category"
                   name="category"
+                  required
                   value={formData.category}
                   onChange={handleInputChange}
                 >
-                  <option value={"saving"}>Saving</option>
-                  <option value={"expense"}>Expense</option>
-                  <option value={"investment"}>Investment</option>
+                  <option value="" disabled className="text-xs">
+                    Select a category...
+                  </option>
+                  <option value={"saving"} className="text-md text-gray-700">
+                    Saving
+                  </option>
+                  <option value={"expense"} className="text-md text-gray-700">
+                    Expense
+                  </option>
+                  <option
+                    value={"investment"}
+                    className="text-md text-gray-700"
+                  >
+                    Investment
+                  </option>
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                   <svg

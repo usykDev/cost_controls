@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { client } from "@/apollo/apolloProvider";
 import ThemeSwitch from "./ThemeSwitch";
 import { GET_AUTHENTICATED_USER } from "@/graphql/queries/user.query";
+import Link from "next/link";
 
 const Logout = () => {
   const router = useRouter();
@@ -31,15 +32,17 @@ const Logout = () => {
 
   return (
     <div className="flex justify-center gap-4 items-center relative z-50 mb-5 pt-3">
-      <img
-        src={data?.authUser?.avatar}
-        className={
-          data?.authUser?.avatar
-            ? "w-10  h-10 rounded-full border cursor-pointer"
-            : "w-6 h-6 border-t-2 border-b-2 rounded-full animate-spin"
-        }
-        alt="Avatar"
-      />
+      <Link href="/" className="flex flex-col justify-center items-center ">
+        <img
+          src={data?.authUser?.avatar}
+          className={
+            data?.authUser?.avatar
+              ? "w-10  h-10 rounded-full border cursor-pointer"
+              : "w-6 h-6 border-t-2 border-b-2 rounded-full animate-spin"
+          }
+          alt="Avatar"
+        />
+      </Link>
 
       <ThemeSwitch />
 
