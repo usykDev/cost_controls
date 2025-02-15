@@ -2,7 +2,7 @@
 
 A web application that enables users to track their spending efficiently.
 
-![Cost control pic](./front/public/readme_pic.png)
+![Cost control pic](./front/public/readme_pic1.png)
 
 ## Features
 - User registration and authorization
