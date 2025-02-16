@@ -9,6 +9,7 @@ A web application that enables users to track their spending efficiently.
 - Personal account with chart of spendings
 - CRUD of transactions
 - Database management
+- UI supporting dark and light mode
 
 ## Tech Stack
 **Frontend:** Next.js, React, TypeScript, GraphQL (Apollo Client), Tailwind CSS  
